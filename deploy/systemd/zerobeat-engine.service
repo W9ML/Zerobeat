@@ -1,0 +1,32 @@
+[Unit]
+Description=Zerobeat engine (radio, decoder, automatic operating, background jobs)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=zerobeat
+Group=zerobeat
+EnvironmentFile=/etc/zerobeat/zerobeat.env
+WorkingDirectory=/opt/zerobeat/packages/engine
+ExecStart=/usr/bin/node --enable-source-maps dist/engine.mjs
+Restart=always
+RestartSec=5
+TimeoutStopSec=15
+KillSignal=SIGTERM
+
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+ReadWritePaths=/var/lib/zerobeat
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

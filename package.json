@@ -1,0 +1,42 @@
+{
+  "name": "zerobeat",
+  "version": "2.0.0",
+  "private": true,
+  "license": "GPL-3.0-or-later",
+  "description": "Zerobeat: a self-hosted digital-mode hub for ham radio. Your rig, every digital mode, any browser",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "typecheck": "tsc -p packages/core && tsc -p packages/engine && npm -w apps/web run typecheck",
+    "test": "vitest run",
+    "build": "npm run build:engine && npm run build:web",
+    "build:engine": "npm -w packages/engine run build",
+    "build:web": "npm -w apps/web run build",
+    "dev:engine": "npm -w packages/engine run dev",
+    "dev:web": "npm -w apps/web run dev",
+    "db:migrate": "tsx scripts/migrate.ts",
+    "db:generate": "drizzle-kit generate --config packages/core/drizzle.config.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "drizzle-kit": "^0.31.10",
+    "drizzle-orm": "^0.45.4",
+    "tsx": "^4.23.9",
+    "typescript": "^5.9.0",
+    "vitest": "^4.1.10"
+  },
+  "type": "module",
+  "allowScripts": {
+    "better-sqlite3@12.11.1": true,
+    "esbuild@0.25.12": true,
+    "esbuild@0.28.2": true,
+    "esbuild@0.18.20": true,
+    "sharp@0.34.5": true,
+    "sharp@0.35.5": true
+  }
+}

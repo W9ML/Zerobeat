@@ -1,0 +1,111 @@
+@import "tailwindcss";
+@source "../app";
+@source "../components";
+@source "../lib";
+
+@theme {
+  --color-bg: #0a0c10;
+  --color-panel: #11141a;
+  --color-panel-2: #171b23;
+  --color-panel-3: #1e232d;
+  --color-line: #232834;
+  --color-line-strong: #343b4a;
+  --color-fg: #e8eaef;
+  --color-muted: #8f98ab;
+  /* 4.5:1 or better on the panels (was #616a7d, about 3.3:1). */
+  --color-subtle: #7c8598;
+  --color-accent: #f2662f;
+  --color-accent-strong: #ff7a45;
+  --color-accent-soft: #f2662f22;
+  --color-ok: #3ecf8e;
+  --color-ok-soft: #3ecf8e1f;
+  --color-warn: #f5b041;
+  --color-warn-soft: #f5b0411f;
+  --color-bad: #f05252;
+  --color-bad-soft: #f052521f;
+  --color-info: #5aa9ff;
+  --color-info-soft: #5aa9ff1f;
+  --color-me: #c084fc;
+  --color-me-soft: #c084fc22;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    background: var(--color-bg);
+  }
+  body {
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--color-accent-soft);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-line-strong);
+    border-radius: 10px;
+    border: 2px solid var(--color-bg);
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+.pulse {
+  animation: pulse-dot 1.2s ease-in-out infinite;
+}
+
+/* Motion off for people who asked their system for less. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* A grid item's minimum width is its content's by default, so one long line (a table,
+   a callsign list) pushes a one-column phone layout past the screen. Never. */
+.grid > * {
+  min-width: 0;
+}

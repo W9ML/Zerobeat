@@ -1,0 +1,1 @@
+ALTER TABLE `users` ADD `license_class` text;

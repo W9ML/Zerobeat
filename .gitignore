@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.next/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+data/*.db
+data/*.db-wal
+data/*.db-shm
+data/qsl/*
+!data/qsl/.gitkeep
+backups/
+coverage/
+.DS_Store
+scratch/

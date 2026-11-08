@@ -1,0 +1,30 @@
+[Unit]
+Description=Zerobeat web
+After=network-online.target zerobeat-engine.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=zerobeat
+Group=zerobeat
+EnvironmentFile=/etc/zerobeat/zerobeat.env
+Environment=PORT=3000 HOSTNAME=127.0.0.1
+WorkingDirectory=/opt/zerobeat/apps/web
+ExecStart=/usr/bin/node /opt/zerobeat/node_modules/next/dist/bin/next start -H 127.0.0.1 -p 3000
+Restart=always
+RestartSec=5
+
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+ReadWritePaths=/var/lib/zerobeat /opt/zerobeat/apps/web/.next/cache
+
+[Install]
+WantedBy=multi-user.target
